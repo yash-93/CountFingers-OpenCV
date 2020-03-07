@@ -30,4 +30,9 @@ def segment(frame, threshold_min=25):
         return (thresholded, hand_segment)
 
 
-
+def count_fingers(thresholded, hand_segment):
+    conv_hull = cv2.convexHull(hand_segment)
+    top = tuple(conv_hull[conv_hull[:, :, 1].argmin()[0]])
+    bottom = tuple(conv_hull[conv_hull[:, :, 1].argmax()[0]])
+    left = tuple(conv_hull[conv_hull[:, :, 0].argmin()[0]])
+    right = tuple(conv_hull[conv_hull[:, :, 0].argmax()[0]])
